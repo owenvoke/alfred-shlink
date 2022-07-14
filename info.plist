@@ -139,7 +139,10 @@ $apiKey = getenv('SHLINK_API_KEY');
 
 $data = [
     'longUrl' =&gt; $url,
-    'findIfExists' =&gt; true,
+    'findIfExists' =&gt; getenv('SHLINK_EXISTING') === 'true',
+    'shortCodeLength' =&gt; (int) (getenv('SHLINK_CODE_LENGTH') ?: 6),
+    'validateUrl' =&gt; getenv('SHLINK_VALIDATE_URL') === 'true',
+    'tags' =&gt; explode(',', getenv('SHLINK_TAGS') ?: ''),
 ];
 
 $curl = curl_init();
@@ -265,16 +268,28 @@ echo $result['shortUrl'] ?? $result['detail'] ?? 'An unknown error occurred';</s
 	<dict>
 		<key>SHLINK_API_KEY</key>
 		<string></string>
+		<key>SHLINK_CODE_LENGTH</key>
+		<string></string>
 		<key>SHLINK_DOMAIN</key>
+		<string></string>
+		<key>SHLINK_EXISTING</key>
+		<string></string>
+		<key>SHLINK_TAGS</key>
+		<string></string>
+		<key>SHLINK_VALIDATE_URL</key>
 		<string></string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
+		<string>SHLINK_EXISTING</string>
+		<string>SHLINK_TAGS</string>
 		<string>SHLINK_DOMAIN</string>
+		<string>SHLINK_CODE_LENGTH</string>
+		<string>SHLINK_VALIDATE_URL</string>
 		<string>SHLINK_API_KEY</string>
 	</array>
 	<key>version</key>
-	<string>1.0.0</string>
+	<string>1.1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/owenvoke/alfred-shlink</string>
 </dict>
