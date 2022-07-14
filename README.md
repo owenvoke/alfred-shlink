@@ -13,11 +13,19 @@ Download the Alfred file from the [Releases](https://github.com/owenvoke/alfred-
 
 Then configure the environment variables in the Alfred configuration.
 
+> **Note**  
+> This workflow requires PHP to be installed, consider using Brew.  
+> ```shell
+> brew install php
+> ```
+
 ## Usage
 
 This workflow provides a single command to generate a short URL with your Shlink instance:
 
-`shlink {url}`
+```shell
+shlink {url}
+```
 
 ### Available Environment Variables
 
