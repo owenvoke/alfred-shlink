@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>dev.voke.shlink</string>
+	<key>category</key>
+	<string>Internet</string>
+	<key>connections</key>
+	<dict>
+		<key>24D0F834-CF03-426D-94B0-445D933EC6C6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CF29F13C-013B-4B6E-998F-638B655141BE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>24D0F834-CF03-426D-94B0-445D933EC6C6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CF29F13C-013B-4B6E-998F-638B655141BE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8D8B8E37-DD40-40A9-B468-384BD5321E83</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>626539A0-6416-45C9-9978-F1B6DAEA0BB9</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>6CA6108B-3FFC-48AB-907B-1DC65A323248</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>626539A0-6416-45C9-9978-F1B6DAEA0BB9</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>6CA6108B-3FFC-48AB-907B-1DC65A323248</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Owen Voke (@owenvoke)</string>
+	<key>description</key>
+	<string>Shorten URLs with Shlink</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Shlink</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>8D8B8E37-DD40-40A9-B468-384BD5321E83</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>shlink</string>
+				<key>subtext</key>
+				<string>Shorten "{query}" with "{var:SHLINK_DOMAIN}"</string>
+				<key>text</key>
+				<string>Shorten URL (Shlink)</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>#!/usr/bin/env php
+&lt;?php
+
+$url = $argv[1];
+$domain = getenv('SHLINK_DOMAIN');
+$apiKey = getenv('SHLINK_API_KEY');
+
+$data = [
+    'longUrl' =&gt; $url,
+    'findIfExists' =&gt; true,
+];
+
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+    CURLOPT_URL =&gt;  "{$domain}/rest/v2/short-urls",
+    CURLOPT_HTTPHEADER =&gt; ["X-Api-Key: {$apiKey}"],
+    CURLOPT_POST =&gt; true,
+    CURLOPT_POSTFIELDS =&gt; http_build_query($data),
+    CURLOPT_RETURNTRANSFER =&gt; true,
+]);
+
+$result = json_decode(curl_exec($curl), true);
+
+echo $result['shortUrl'] ?? $result['detail'] ?? 'An unknown error occurred';</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>24D0F834-CF03-426D-94B0-445D933EC6C6</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{query}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>4</integer>
+						<key>matchstring</key>
+						<string>^https:\/\/.*$</string>
+						<key>outputlabel</key>
+						<string>Success</string>
+						<key>uid</key>
+						<string>626539A0-6416-45C9-9978-F1B6DAEA0BB9</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>Error</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>CF29F13C-013B-4B6E-998F-638B655141BE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Shlink ⇒ URL Shortened</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>6CA6108B-3FFC-48AB-907B-1DC65A323248</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>24D0F834-CF03-426D-94B0-445D933EC6C6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>315</integer>
+			<key>ypos</key>
+			<integer>225</integer>
+		</dict>
+		<key>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>140</integer>
+			<key>ypos</key>
+			<integer>225</integer>
+		</dict>
+		<key>6CA6108B-3FFC-48AB-907B-1DC65A323248</key>
+		<dict>
+			<key>xpos</key>
+			<integer>625</integer>
+			<key>ypos</key>
+			<integer>265</integer>
+		</dict>
+		<key>8D8B8E37-DD40-40A9-B468-384BD5321E83</key>
+		<dict>
+			<key>xpos</key>
+			<integer>625</integer>
+			<key>ypos</key>
+			<integer>150</integer>
+		</dict>
+		<key>CF29F13C-013B-4B6E-998F-638B655141BE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>245</integer>
+		</dict>
+	</dict>
+	<key>variables</key>
+	<dict>
+		<key>SHLINK_API_KEY</key>
+		<string></string>
+		<key>SHLINK_DOMAIN</key>
+		<string></string>
+	</dict>
+	<key>variablesdontexport</key>
+	<array>
+		<string>SHLINK_DOMAIN</string>
+		<string>SHLINK_API_KEY</string>
+	</array>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/owenvoke/alfred-shlink</string>
+</dict>
+</plist>
