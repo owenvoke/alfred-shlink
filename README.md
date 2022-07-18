@@ -30,14 +30,14 @@ This workflow provides a single command to generate a short URL with your Shlink
 shlink {url}
 ```
 
-### Available Environment Variables
+### Available Configuration
 
-- `SHLINK_DOMAIN` (**REQUIRED**) - The URL of your Shlink instance (e.g. `https://s.example.org`)
-- `SHLINK_API_KEY` (**REQUIRED**) - The [API key](https://shlink.io/documentation/api-docs/authentication) for your Shlink instance
-- `SHLINK_CODE_LENGTH` - The length of short URL codes (default: `6`)
-- `SHLINK_EXISTING` - Whether to use existing short URLs if they are found (default: `false`)
-- `SHLINK_VALIDATE_URL` - Whether to validate the provided URL (default: `false`)
-- `SHLINK_TAGS` - A comma-separated list of tags to apply to your short URLs
+- Domain (**REQUIRED**) - The URL of your Shlink instance (e.g. `https://s.example.org`)
+- API Key (**REQUIRED**) - The [API key](https://shlink.io/documentation/api-docs/authentication) for your Shlink instance
+- Code Length - The length of short URL codes (default: `6`)
+- Use Existing - Whether to use existing short URLs if they are found (default: `false`)
+- Validate URL - Whether to validate the provided URL (default: `false`)
+- Tags - A comma-separated list of tags to apply to your short URLs
 
 ## Change log
 
