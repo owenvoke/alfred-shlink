@@ -104,27 +104,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>shlink</string>
-				<key>subtext</key>
-				<string>Shorten "{query}" with "{var:SHLINK_DOMAIN}"</string>
-				<key>text</key>
-				<string>Shorten URL (Shlink)</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -139,9 +118,9 @@ $apiKey = getenv('SHLINK_API_KEY');
 
 $data = [
     'longUrl' =&gt; $url,
-    'findIfExists' =&gt; getenv('SHLINK_EXISTING') === 'true',
+    'findIfExists' =&gt; getenv('SHLINK_EXISTING') === '1',
     'shortCodeLength' =&gt; (int) (getenv('SHLINK_CODE_LENGTH') ?: 6),
-    'validateUrl' =&gt; getenv('SHLINK_VALIDATE_URL') === 'true',
+    'validateUrl' =&gt; getenv('SHLINK_VALIDATE_URL') === '1',
     'tags' =&gt; explode(',', getenv('SHLINK_TAGS') ?: ''),
 ];
 
@@ -175,6 +154,27 @@ echo $result['shortUrl'] ?? $result['detail'] ?? 'An unknown error occurred';</s
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>shlink</string>
+				<key>subtext</key>
+				<string>Shorten "{query}" with "{var:SHLINK_DOMAIN}"</string>
+				<key>text</key>
+				<string>Shorten URL (Shlink)</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -194,6 +194,8 @@ echo $result['shortUrl'] ?? $result['detail'] ?? 'An unknown error occurred';</s
 				</array>
 				<key>elselabel</key>
 				<string>Error</string>
+				<key>hideelse</key>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
@@ -225,71 +227,176 @@ echo $result['shortUrl'] ?? $result['detail'] ?? 'An unknown error occurred';</s
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string># Alfred Shlink
+
+See [the GitHub repository](https://github.com/owenvoke/alfred-shlink) for more information.</string>
 	<key>uidata</key>
 	<dict>
 		<key>24D0F834-CF03-426D-94B0-445D933EC6C6</key>
 		<dict>
 			<key>xpos</key>
-			<integer>315</integer>
+			<real>510</real>
 			<key>ypos</key>
-			<integer>225</integer>
+			<real>225</real>
 		</dict>
 		<key>3ADDFCEC-6847-4B58-82E3-92E8682D11EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>140</integer>
+			<real>275</real>
 			<key>ypos</key>
-			<integer>225</integer>
+			<real>225</real>
 		</dict>
 		<key>6CA6108B-3FFC-48AB-907B-1DC65A323248</key>
 		<dict>
 			<key>xpos</key>
-			<integer>625</integer>
+			<real>820</real>
 			<key>ypos</key>
-			<integer>265</integer>
+			<real>265</real>
 		</dict>
 		<key>8D8B8E37-DD40-40A9-B468-384BD5321E83</key>
 		<dict>
 			<key>xpos</key>
-			<integer>625</integer>
+			<real>820</real>
 			<key>ypos</key>
-			<integer>150</integer>
+			<real>150</real>
 		</dict>
 		<key>CF29F13C-013B-4B6E-998F-638B655141BE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>470</integer>
+			<real>665</real>
 			<key>ypos</key>
-			<integer>245</integer>
+			<real>245</real>
 		</dict>
 	</dict>
-	<key>variables</key>
-	<dict>
-		<key>SHLINK_API_KEY</key>
-		<string></string>
-		<key>SHLINK_CODE_LENGTH</key>
-		<string></string>
-		<key>SHLINK_DOMAIN</key>
-		<string></string>
-		<key>SHLINK_EXISTING</key>
-		<string></string>
-		<key>SHLINK_TAGS</key>
-		<string></string>
-		<key>SHLINK_VALIDATE_URL</key>
-		<string></string>
-	</dict>
-	<key>variablesdontexport</key>
+	<key>userconfigurationconfig</key>
 	<array>
-		<string>SHLINK_EXISTING</string>
-		<string>SHLINK_TAGS</string>
-		<string>SHLINK_DOMAIN</string>
-		<string>SHLINK_CODE_LENGTH</string>
-		<string>SHLINK_VALIDATE_URL</string>
-		<string>SHLINK_API_KEY</string>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>The base URL for your Shlink instance (e.g. `s.example.org`)</string>
+			<key>label</key>
+			<string>Domain</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>SHLINK_DOMAIN</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>An API key to authenticate with your Shlink instance.</string>
+			<key>label</key>
+			<string>API Key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>SHLINK_API_KEY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>6</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>The length of short URL codes.</string>
+			<key>label</key>
+			<string>Code Length</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>SHLINK_CODE_LENGTH</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+			</dict>
+			<key>description</key>
+			<string>Whether to use existing short URLs if they are found.</string>
+			<key>label</key>
+			<string>Use Existing</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>SHLINK_EXISTING</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+			</dict>
+			<key>description</key>
+			<string>Whether to validate the provided URL.</string>
+			<key>label</key>
+			<string>Validate URL</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>SHLINK_VALIDATE_URL</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>A comma-separated list of tags to apply to generated short URLs.</string>
+			<key>label</key>
+			<string>Tags</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>SHLINK_TAGS</string>
+		</dict>
 	</array>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/owenvoke/alfred-shlink</string>
 </dict>

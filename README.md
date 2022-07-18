@@ -7,6 +7,9 @@ Shorten URLs with Shlink in Alfred
 
 ## Install
 
+> **NOTE**  
+> This workflow requires Alfred 5 or later.
+
 **Via Alfred**
 
 Download the Alfred file from the [Releases](https://github.com/owenvoke/alfred-shlink/releases).
