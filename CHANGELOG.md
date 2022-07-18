@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 ## Unreleased
 
+### v1.2.0 - 2022-07-18
+
+### Changed
+- Update to Alfred 5.x using "Workflow Configuration" variables ([1c6c76f](https://github.com/owenvoke/alfred-shlink/commit/1c6c76ffe3f8666115822de68514a61d09db0069))
+
 ### v1.1.0 - 2022-07-14
 
 ### Added
